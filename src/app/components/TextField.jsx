@@ -6,8 +6,9 @@ export const TextField = ({
   value,
   onChange,
   error,
-  type = "text",
+  type,
   required = false,
+  style,
 }) => {
   return (
     <div className="flex flex-col">
@@ -15,12 +16,13 @@ export const TextField = ({
         {label} {required && <span className="text-[#E14942]">*</span>}
       </label>
       <input
-        className={`w-[416px] h-[44px] border outline-none focus:ring-1 ${error ? "focus:ring-[#E14942] focus:border-transparent rounded-lg p-2 border-[#E14942]" : "focus:ring-[#0CA5E9] focus:border-transparent rounded-lg p-2 border-[#CBD5E1]"} `}
+        className={`w-full h-[44px] border outline-none focus:ring-1 ${error ? "focus:ring-[#E14942] focus:border-transparent rounded-lg p-2 border-[#E14942]" : "focus:ring-[#0CA5E9] focus:border-transparent rounded-lg p-2 border-[#CBD5E1]"} `}
         placeholder={placeholder}
         type={type}
         id="input"
         onChange={onChange}
         value={value}
+        style={style}
       ></input>
       {error && <p className="text-[#E14942]">{error}</p>}
     </div>

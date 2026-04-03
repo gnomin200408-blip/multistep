@@ -25,7 +25,7 @@ export const Stepone = ({ handleNextStep }) => {
 
   const isUsernameValid = () => {
     if (username === "") return "Username cannot be empty...";
-    if (!/^[A-Za-z-]+$/.test(username))
+    if (!/^[a-z0-9_]+$/.test(username))
       return "Username cannot contain special characters or numbers.";
   };
   const errorStep = () => {
@@ -48,6 +48,7 @@ export const Stepone = ({ handleNextStep }) => {
             placeholder="Placeholder"
             required={true}
             error={isFirstnameValid()}
+            type="text"
           />
           <TextField
             value={lastname}
@@ -58,6 +59,7 @@ export const Stepone = ({ handleNextStep }) => {
             placeholder="Placeholder"
             required={true}
             error={isLastnameValid()}
+            type="text"
           />
           <TextField
             value={username}
@@ -68,6 +70,7 @@ export const Stepone = ({ handleNextStep }) => {
             placeholder="Placeholder"
             required={true}
             error={isUsernameValid()}
+            type="text"
           />
         </div>
       </div>
@@ -78,7 +81,7 @@ export const Stepone = ({ handleNextStep }) => {
           btnText="Continue"
           slideNumber="3/1"
           width="416px"
-          disabled={errorStep}
+          disabled={!!errorStep()}
           onClick={handleNextStep}
         />
       </div>

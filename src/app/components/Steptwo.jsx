@@ -14,23 +14,23 @@ export const Steptwo = ({ handleNextStep, handlePrevStep }) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const isEmailValid = () => {
-    if (email === "") return "Firstname cannot be empty...";
-    if (!/^[A-Za-z-]+$/.test(email))
+    if (email === "") return "Email cannot be empty...";
+    if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email))
       return "Email cannot contain special characters or numbers.";
   };
   const isPhoneNumberValid = () => {
-    if (phoneNumber === "") return "Lastname cannot be empty...";
-    if (!/^[A-Za-z-]+$/.test(phoneNumber))
+    if (phoneNumber === "") return "Phone number cannot be empty...";
+    if (!/^\d{8}$/.test(phoneNumber))
       return "Phone number cannot contain special characters or numbers.";
   };
 
   const isPasswordValid = () => {
-    if (password === "") return "Username cannot be empty...";
-    if (!/^[A-Za-z-]+$/.test(password))
+    if (password === "") return "Password cannot be empty...";
+    if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(password))
       return "Password cannot contain special characters or numbers.";
   };
   const isConfirmPasswordValid = () => {
-    if (!confirmPassword === password)
+    if (confirmPassword !== password)
       return "Passwords do not match. Please try again";
     if (confirmPassword === "") return "Confirm password cannot be empty...";
   };
@@ -39,7 +39,7 @@ export const Steptwo = ({ handleNextStep, handlePrevStep }) => {
       isEmailValid() ||
       isPhoneNumberValid() ||
       isPasswordValid() ||
-      isConfirmPasswordValid
+      isConfirmPasswordValid()
     );
   };
   return (
@@ -58,6 +58,7 @@ export const Steptwo = ({ handleNextStep, handlePrevStep }) => {
             placeholder="Placeholder"
             required={true}
             error={isEmailValid()}
+            type="text"
           />
           <TextField
             value={phoneNumber}
@@ -68,6 +69,7 @@ export const Steptwo = ({ handleNextStep, handlePrevStep }) => {
             placeholder="Placeholder"
             required={true}
             error={isPhoneNumberValid()}
+            type="text"
           />
           <TextField
             value={password}
@@ -78,6 +80,7 @@ export const Steptwo = ({ handleNextStep, handlePrevStep }) => {
             placeholder="Placeholder"
             required={true}
             error={isPasswordValid()}
+            type="text"
           />
           <TextField
             value={confirmPassword}
@@ -88,6 +91,7 @@ export const Steptwo = ({ handleNextStep, handlePrevStep }) => {
             placeholder="Placeholder"
             required={true}
             error={isConfirmPasswordValid()}
+            type="text"
           />
         </div>
       </div>
@@ -98,7 +102,7 @@ export const Steptwo = ({ handleNextStep, handlePrevStep }) => {
           btnText="Continue"
           slideNumber="3/2"
           width="280px"
-          disabled={errorStep}
+          disabled={!!errorStep()}
           onClick={handleNextStep}
         />
       </div>

@@ -8,10 +8,15 @@ export const Stepthree = ({ handleNextStep, handlePrevStep }) => {
   const [date, setDate] = useState("");
 
   const isDateValid = () => {
-    if (date === "") return "Date cannot be empty...";
-    if (!/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/.test(date))
+    if (date === "") return "Please select a date.";
+    if (/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/.test(date))
       return "Invalid birth date";
   };
+
+  const errorStep = () => {
+    return isDateValid();
+  };
+
   return (
     <div className="w-[480px] h-[655px] bg-[#Fff] rounded-lg p-6 flex flex-col justify-between">
       <div>
@@ -22,12 +27,13 @@ export const Stepthree = ({ handleNextStep, handlePrevStep }) => {
           <TextField
             value={date}
             onChange={(e) => {
-              setEmail(e.target.value);
+              setDate(e.target.value);
             }}
-            label="Email"
-            placeholder="Placeholder"
+            label="Date of birth"
             required={true}
             error={isDateValid()}
+            type="date"
+            placeholder="--/--/--"
           />
         </div>
       </div>
@@ -35,10 +41,10 @@ export const Stepthree = ({ handleNextStep, handlePrevStep }) => {
         <Previous width="128px" onClick={handlePrevStep} btnText="Back" />
         <Next
           className="w-full"
-          btnText="Continue"
-          slideNumber="3/2"
+          btnText="Submit"
+          slideNumber="3/3"
           width="280px"
-          disabled={errorStep}
+          disabled={!!errorStep()}
           onClick={handleNextStep}
         />
       </div>
