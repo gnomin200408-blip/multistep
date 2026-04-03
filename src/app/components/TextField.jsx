@@ -8,7 +8,6 @@ export const TextField = ({
   error,
   type,
   required = false,
-  style,
 }) => {
   return (
     <div className="flex flex-col">
@@ -22,7 +21,6 @@ export const TextField = ({
         id="input"
         onChange={onChange}
         value={value}
-        style={style}
       ></input>
       {error && <p className="text-[#E14942]">{error}</p>}
     </div>

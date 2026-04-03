@@ -4,7 +4,14 @@ import { TextField } from "./TextField";
 import { Previous } from "./Previous";
 import { Next } from "./Next";
 
-export const Stepthree = ({ handleNextStep, handlePrevStep }) => {
+export const Stepthree = ({
+  handleNextStep,
+  handlePrevStep,
+  form,
+  setForm,
+  error,
+  setError,
+}) => {
   const [date, setDate] = useState("");
 
   const isDateValid = () => {
