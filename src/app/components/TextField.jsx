@@ -8,6 +8,7 @@ export const TextField = ({
   error,
   type,
   required = false,
+  onBlur,
 }) => {
   return (
     <div className="flex flex-col">
@@ -21,6 +22,7 @@ export const TextField = ({
         id="input"
         onChange={onChange}
         value={value}
+        onBlur={onBlur}
       ></input>
       {error && <p className="text-[#E14942]">{error}</p>}
     </div>

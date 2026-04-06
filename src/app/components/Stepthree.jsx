@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 import { Header } from "./Header";
 import { TextField } from "./TextField";
@@ -15,8 +17,8 @@ export const Stepthree = ({
   const [date, setDate] = useState("");
 
   const isDateValid = () => {
-    if (date === "") return "Please select a date.";
-    if (/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/.test(date))
+    if (form.date === "") return "Please select a date.";
+    if (!/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/.test(form.date))
       return "Invalid birth date";
   };
 
@@ -32,15 +34,16 @@ export const Stepthree = ({
         </div>
         <div className="pt-7 space-y-[1px]">
           <TextField
-            value={date}
+            value={form.date}
             onChange={(e) => {
-              setDate(e.target.value);
+              setForm({ ...form, date: e.target.value });
             }}
             label="Date of birth"
             required={true}
-            error={isDateValid()}
+            error={error.date}
             type="date"
             placeholder="--/--/--"
+            onBlur={() => setError({ ...error, date: isDateValid() })}
           />
         </div>
       </div>

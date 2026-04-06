@@ -49,8 +49,8 @@ export default function Home() {
         handlePrevStep={handlePrevStep}
         form={form}
         setForm={setForm}
-        errors={error}
-        setErrors={setError}
+        error={error}
+        setError={setError}
       />
     </div>
   );

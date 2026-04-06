@@ -14,29 +14,19 @@ export const Stepone = ({ handleNextStep, form, setForm, error, setError }) => {
   const [username, setUsername] = useState("");
 
   const isFirstnameValid = () => {
-    if (value.trim() === "")
-      return "Firstname cannot be empty...",
-      };
-    if (!/^[A-Za-z-]+$/.test(firstname))
+    if (form.firstname.trim() === "") return "Firstname cannot be empty...";
+    if (!/^[A-Za-z-]+$/.test(form.firstname))
       return "Firstname cannot contain special characters or numbers.";
   };
   const isLastnameValid = () => {
-    if (lastname.trim() === "")
-      return setError({
-        ...error,
-        lastnameError: "Lastname cannot be empty...",
-      });
-    if (!/^[A-Za-z-]+$/.test(lastname))
+    if (form.lastname.trim() === "") return "Lastname cannot be empty...";
+    if (!/^[A-Za-z-]+$/.test(form.lastname))
       return " Lastname cannot contain special characters or numbers.";
   };
 
   const isUsernameValid = () => {
-    if (username.trim() === "")
-      return setErrors({
-        ...errors,
-        usernameError: "Username cannot be empty...",
-      });
-    if (!/^[a-z0-9_]+$/.test(username))
+    if (form.username.trim() === "") return "Username cannot be empty...";
+    if (!/^[a-z0-9_]+$/.test(form.username))
       return "Username cannot contain special characters or numbers.";
   };
   const errorStep = () => {
@@ -52,37 +42,49 @@ export const Stepone = ({ handleNextStep, form, setForm, error, setError }) => {
         </div>
         <div className="pt-7 space-y-[1px] m-0">
           <TextField
-            value={firstname}
+            value={form.firstname}
             onChange={(e) => {
-              setFirstname(e.target.value);
+              setForm({ ...form, firstname: e.target.value });
+              if (error.firstname) {
+                setError({ ...error, firstname: isFirstnameValid() });
+              }
             }}
             label="First name"
             placeholder="Placeholder"
             required={true}
-            error={isFirstnameValid()}
+            error={error.firstname}
             type="text"
+            onBlur={() => setError({ ...error, firstname: isFirstnameValid() })}
           />
           <TextField
-            value={lastname}
+            value={form.lastname}
             onChange={(e) => {
-              setLastname(e.target.value);
+              setForm({ ...form, lastname: e.target.value });
+              if (error.lastname) {
+                setError({ ...error, lastname: isLastnameValid() });
+              }
             }}
             label="Last name"
             placeholder="Placeholder"
             required={true}
-            error={isLastnameValid()}
+            error={error.lastname}
             type="text"
+            onBlur={() => setError({ ...error, lastname: isLastnameValid() })}
           />
           <TextField
-            value={username}
+            value={form.username}
             onChange={(e) => {
-              setUsername(e.target.value);
+              setForm({ ...form, username: e.target.value });
+              if (error.username) {
+                setError({ ...error, username: isUsernameValid() });
+              }
             }}
             label="Username"
             placeholder="Placeholder"
             required={true}
-            error={isUsernameValid()}
+            error={error.username}
             type="text"
+            onBlur={() => setError({ ...error, username: isUsernameValid() })}
           />
         </div>
       </div>

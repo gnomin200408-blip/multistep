@@ -8,31 +8,39 @@ import { Header } from "./Header";
 import { Next } from "./Next";
 import { Previous } from "./Previous";
 
-export const Steptwo = ({ handleNextStep, handlePrevStep }) => {
+export const Steptwo = ({
+  handleNextStep,
+  handlePrevStep,
+  form,
+  setForm,
+  error,
+  setError,
+}) => {
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const isEmailValid = () => {
-    if (email === "") return "Email cannot be empty...";
-    if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email))
+    if (form.email === "") return "Email cannot be empty...";
+    if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(form.email))
       return "Email cannot contain special characters or numbers.";
   };
   const isPhoneNumberValid = () => {
-    if (phoneNumber === "") return "Phone number cannot be empty...";
-    if (!/^\d{8}$/.test(phoneNumber))
+    if (form.phoneNumber === "") return "Phone number cannot be empty...";
+    if (!/^\d{8}$/.test(form.phoneNumber))
       return "Phone number cannot contain special characters or numbers.";
   };
 
   const isPasswordValid = () => {
-    if (password === "") return "Password cannot be empty...";
-    if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(password))
+    if (form.password === "") return "Password cannot be empty...";
+    if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(form.password))
       return "Password cannot contain special characters or numbers.";
   };
   const isConfirmPasswordValid = () => {
-    if (confirmPassword !== password)
+    if (form.confirmPassword !== form.password)
       return "Passwords do not match. Please try again";
-    if (confirmPassword === "") return "Confirm password cannot be empty...";
+    if (form.confirmPassword === "")
+      return "Confirm password cannot be empty...";
   };
   const errorStep = () => {
     return (
@@ -50,48 +58,56 @@ export const Steptwo = ({ handleNextStep, handlePrevStep }) => {
         </div>
         <div className="pt-7 space-y-[1px]">
           <TextField
-            value={email}
+            value={form.email}
             onChange={(e) => {
-              setEmail(e.target.value);
+              setForm({ ...form, email: e.target.value });
             }}
             label="Email"
             placeholder="Placeholder"
             required={true}
-            error={isEmailValid()}
+            error={error.email}
             type="text"
+            onBlur={() => setError({ ...error, email: isEmailValid() })}
           />
           <TextField
-            value={phoneNumber}
+            value={form.phoneNumber}
             onChange={(e) => {
-              setPhoneNumber(e.target.value);
+              setForm({ ...form, phoneNumber: e.target.value });
             }}
             label="Phone number"
             placeholder="Placeholder"
             required={true}
-            error={isPhoneNumberValid()}
+            error={error.phoneNumber}
             type="text"
+            onBlur={() =>
+              setError({ ...error, phoneNumber: isPhoneNumberValid() })
+            }
           />
           <TextField
-            value={password}
+            value={form.password}
             onChange={(e) => {
-              setPassword(e.target.value);
+              setForm({ ...form, password: e.target.value });
             }}
             label="Password"
             placeholder="Placeholder"
             required={true}
-            error={isPasswordValid()}
+            error={error.password}
             type="text"
+            onBlur={() => setError({ ...error, password: isPasswordValid() })}
           />
           <TextField
-            value={confirmPassword}
+            value={form.confirmPassword}
             onChange={(e) => {
-              setConfirmPassword(e.target.value);
+              setForm({ ...form, confirmPassword: e.target.value });
             }}
             label="Confirm password"
             placeholder="Placeholder"
             required={true}
-            error={isConfirmPasswordValid()}
+            error={error.confirmPassword}
             type="text"
+            onBlur={() =>
+              setError({ ...error, confirmPassword: isConfirmPasswordValid() })
+            }
           />
         </div>
       </div>
