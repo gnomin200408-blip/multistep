@@ -16,6 +16,7 @@ export default function Home() {
     password: "",
     confirmPassword: "",
     date: "",
+    image: "",
   });
   const [error, setError] = useState({
     firstname: "",
@@ -26,8 +27,9 @@ export default function Home() {
     password: "",
     confirmPassword: "",
     date: "",
+    image: "",
   });
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(1);
 
   const steps = [Stepone, Steptwo, Stepthree, Stepfour];
   const StepForm = steps[step];

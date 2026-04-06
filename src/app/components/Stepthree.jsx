@@ -5,6 +5,7 @@ import { Header } from "./Header";
 import { TextField } from "./TextField";
 import { Previous } from "./Previous";
 import { Next } from "./Next";
+import { ImageField } from "./ImageField";
 
 export const Stepthree = ({
   handleNextStep,
@@ -16,14 +17,16 @@ export const Stepthree = ({
 }) => {
   const [date, setDate] = useState("");
 
-  const isDateValid = () => {
-    if (form.date === "") return "Please select a date.";
-    if (!/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/.test(form.date))
+  const isDateValid = (date) => {
+    if (date === "") return "Please select a date.";
+    if (!/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/.test(date))
       return "Invalid birth date";
   };
-
+  const isImageValid = (image) => {
+    if (image === "") return "Зургаа оруулна уу!";
+  };
   const errorStep = () => {
-    return isDateValid();
+    return isDateValid(form.date) || isImageValid(form.image);
   };
 
   return (
@@ -37,13 +40,27 @@ export const Stepthree = ({
             value={form.date}
             onChange={(e) => {
               setForm({ ...form, date: e.target.value });
+              setError({ ...error, date: isDateValid(e.target.value) });
             }}
             label="Date of birth"
             required={true}
             error={error.date}
             type="date"
             placeholder="--/--/--"
-            onBlur={() => setError({ ...error, date: isDateValid() })}
+          />
+          <ImageField
+            label="Profile image"
+            required={true}
+            value={form.image}
+            error={error.image}
+            onChange={(e) => {
+              const imageValue = URL.createObjectURL(e.target.files[0]);
+              console.log(imageValue);
+              setForm({ ...form, image: imageValue });
+            }}
+            onCancel={() => {
+              setForm({ ...form, image: "" });
+            }}
           />
         </div>
       </div>
@@ -54,7 +71,7 @@ export const Stepthree = ({
           btnText="Submit"
           slideNumber="3/3"
           width="280px"
-          disabled={!!errorStep()}
+          disabled={errorStep()}
           onClick={handleNextStep}
         />
       </div>
