@@ -17,25 +17,40 @@ export const Steptwo = ({
   setError,
 }) => {
   const isEmailValid = (email) => {
-    if (email === "") return "Email cannot be empty...";
+    if (email === "") return "И-мэйлээ оруулна уу!";
     if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email))
-      return "Email cannot contain special characters or numbers.";
+      return "И-мэйл буруу форматтай байна.";
   };
+
   const isPhoneNumberValid = (phoneNumber) => {
-    if (phoneNumber === "") return "Phone number cannot be empty...";
+    if (phoneNumber === "") return "Утасны дугаараа оруулна уу!";
     if (!/^\d{8}$/.test(phoneNumber))
-      return "Phone number cannot contain special characters or numbers.";
+      return "Утасны дугаар 8 оронтой тоо байх ёстой.";
   };
 
   const isPasswordValid = (password) => {
-    if (password === "") return "Password cannot be empty...";
-    if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(password))
-      return "Password cannot contain special characters or numbers.";
+    if (password === "") return "Нууц үгээ оруулна!";
+    if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/.test(password))
+      return passwordError(password);
   };
+  const passwordError = (password) => {
+    const errors = [];
+    if (password.length < 8)
+      errors.push("Нууц үг хамгийн багадаа 8 тэмдэгт байх ёстой.");
+    if (!/[A-Z]/.test(password))
+      errors.push("Нууц үг хамгийн багадаа 1 том үсэг агуулах ёстой.");
+    if (!/[a-z]/.test(password))
+      errors.push("Нууц үг хамгийн багадаа 1 жижиг үсэн агуулагдах ёстой.");
+    if (!/[0-9]/.test(password))
+      errors.push("Нууц үг хамгийн багадаа 1 тоо агуулах ёстой.");
+    if (!/[!@#$%^&*]/.test(password))
+      errors.push("Нууц үг хамгийн багадаа 1 тусгай тэмдэгт агуулах ёстой.");
+    else return errors.length > 0 ? errors : null;
+  };
+
   const isConfirmPasswordValid = (confirmPassword) => {
-    if (confirmPassword !== form.password)
-      return "Passwords do not match. Please try again";
-    if (confirmPassword === "") return "Confirm password cannot be empty...";
+    if (confirmPassword !== form.password) return "Нууц үг таарахгүй байна.";
+    if (confirmPassword === "") return "Нууц үгээ оруулна уу!";
   };
   const errorStep = () => {
     return (

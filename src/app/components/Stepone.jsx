@@ -10,18 +10,18 @@ export const Stepone = ({ handleNextStep, form, setForm, error, setError }) => {
   const isFirstnameValid = (firstname) => {
     if (firstname.trim() === "") return "Нэрээ оруулна уу!";
     if (!/^[A-Za-z-]+$/.test(firstname))
-      return "Нэрэнд тусгай тэмдэгт болон тоо бичиж болохгүй";
+      return "Нэр зөвхөн үсэг агуулах ёстой.";
   };
   const isLastnameValid = (lastname) => {
     if (lastname.trim() === "") return "Овгоо оруулна уу!";
     if (!/^[A-Za-z-]+$/.test(lastname))
-      return "Овгонд тусгай тэмдэгт болон тоо бичиж болохгүй";
+      return "Овог зөвхөн үсэг агуулах ёстой.";
   };
 
   const isUsernameValid = (username) => {
-    if (username.trim() === "") return "Username cannot be empty...";
+    if (username.trim() === "") return "Хэрэглэгчийн нэрээ оруулна уу!";
     if (!/^[a-z0-9_]+$/.test(username))
-      return "Username cannot contain special characters or numbers.";
+      return "Хэрэглэгчийн нэр зөвхөн жижиг үсэг, тоо, _ агуулах ёстой.";
   };
   const errorStep = () => {
     return (
