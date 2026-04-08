@@ -73,11 +73,10 @@ export const Stepone = ({ handleNextStep, form, setForm, error, setError }) => {
             value={form.username}
             onChange={(e) => {
               setForm({ ...form, username: e.target.value });
-              if (error.username)
-                setError({
-                  ...error,
-                  username: isUsernameValid(e.target.value),
-                });
+              setError({
+                ...error,
+                username: isUsernameValid(e.target.value),
+              });
             }}
             label="Username"
             placeholder="Placeholder"

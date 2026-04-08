@@ -24,7 +24,11 @@ export const TextField = ({
         value={value}
         onBlur={onBlur}
       ></input>
-      {error && <p className="text-[#E14942]">{error}</p>}
+      {error && (
+        <div className="text-[#E14942] whitespace-pre-line text-[14px]">
+          {error}
+        </div>
+      )}
     </div>
   );
 };

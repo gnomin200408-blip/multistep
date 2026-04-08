@@ -29,7 +29,7 @@ export default function Home() {
     date: "",
     image: "",
   });
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(2);
 
   const steps = [Stepone, Steptwo, Stepthree, Stepfour];
   const StepForm = steps[step];

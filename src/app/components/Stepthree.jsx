@@ -15,15 +15,14 @@ export const Stepthree = ({
   error,
   setError,
 }) => {
-  const [date, setDate] = useState("");
-
   const isDateValid = (date) => {
-    if (date === "") return "Please select a date.";
+    if (date === "") return "Төрсөн огноогоо оруулна уу!";
     if (!/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/.test(date))
-      return "Invalid birth date";
+      return "Огноо буруу байна.";
   };
   const isImageValid = (image) => {
-    if (image === "") return "Зургаа оруулна уу!";
+    if (!image) return "Зургаа оруулна уу!";
+    return null;
   };
   const errorStep = () => {
     return isDateValid(form.date) || isImageValid(form.image);
@@ -46,7 +45,6 @@ export const Stepthree = ({
             required={true}
             error={error.date}
             type="date"
-            placeholder="--/--/--"
           />
           <ImageField
             label="Profile image"
@@ -55,11 +53,12 @@ export const Stepthree = ({
             error={error.image}
             onChange={(e) => {
               const imageValue = URL.createObjectURL(e.target.files[0]);
-              console.log(imageValue);
               setForm({ ...form, image: imageValue });
+              setError({ ...error, image: isImageValid(e.target.value) });
             }}
             onCancel={() => {
               setForm({ ...form, image: "" });
+              setError({ ...error, image: "Зургаа оруулна уу!" });
             }}
           />
         </div>

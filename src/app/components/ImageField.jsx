@@ -40,10 +40,10 @@ export const ImageField = ({
               alt=""
               onClick={onCancel}
             />
-            {error && <p className="text-[#E14942]">{error}</p>}
           </>
         )}
       </div>
+      {error && <p className="text-[#E14942] text-[14px]">{error}</p>}
     </div>
   );
 };

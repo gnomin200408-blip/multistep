@@ -29,23 +29,24 @@ export const Steptwo = ({
   };
 
   const isPasswordValid = (password) => {
-    if (password === "") return "Нууц үгээ оруулна!";
-    if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/.test(password))
-      return passwordError(password);
-  };
-  const passwordError = (password) => {
-    const errors = [];
-    if (password.length < 8)
-      errors.push("Нууц үг хамгийн багадаа 8 тэмдэгт байх ёстой.");
-    if (!/[A-Z]/.test(password))
-      errors.push("Нууц үг хамгийн багадаа 1 том үсэг агуулах ёстой.");
-    if (!/[a-z]/.test(password))
-      errors.push("Нууц үг хамгийн багадаа 1 жижиг үсэн агуулагдах ёстой.");
-    if (!/[0-9]/.test(password))
-      errors.push("Нууц үг хамгийн багадаа 1 тоо агуулах ёстой.");
-    if (!/[!@#$%^&*]/.test(password))
-      errors.push("Нууц үг хамгийн багадаа 1 тусгай тэмдэгт агуулах ёстой.");
-    else return errors.length > 0 ? errors : null;
+    if (password === "") return "Нууц үгээ оруулна уу!";
+    if (
+      !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/.test(password)
+    ) {
+      const errors = [];
+      if (password.length < 8) errors.push("•8 тэмдэгт байх ёстой.");
+      if (!/[A-Z]/.test(password)) errors.push("•1 том үсэг агуулах ёстой.");
+      if (!/[a-z]/.test(password))
+        errors.push("•1 жижиг үсэн агуулагдах ёстой.");
+      if (!/[0-9]/.test(password)) errors.push("•1 тоо агуулах ёстой.");
+      if (!/[!@#$%^&*]/.test(password))
+        errors.push("•1 тусгай тэмдэгт агуулах ёстой.");
+
+      const PassErr =
+        "Нууц үг нь дараах шаардлагуудыг хангасан байх ёстой. \n " +
+        errors.join("\n");
+      return PassErr;
+    }
   };
 
   const isConfirmPasswordValid = (confirmPassword) => {
@@ -61,7 +62,7 @@ export const Steptwo = ({
     );
   };
   return (
-    <div className="w-[480px] h-[655px] bg-[#Fff] rounded-lg p-6 flex flex-col justify-between">
+    <div className="w-[480px] min-h-[655px] bg-[#Fff] rounded-lg p-6 flex flex-col justify-between">
       <div>
         <div>
           <Header />
@@ -77,7 +78,7 @@ export const Steptwo = ({
             placeholder="Placeholder"
             required={true}
             error={error.email}
-            type="text"
+            type="email"
           />
           <TextField
             value={form.phoneNumber}
@@ -123,7 +124,7 @@ export const Steptwo = ({
           />
         </div>
       </div>
-      <div className="flex gap-2">
+      <div className="flex gap-2 pt-4">
         <Previous width="128px" onClick={handlePrevStep} btnText="Back" />
         <Next
           className="w-full"
